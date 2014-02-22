@@ -1,0 +1,25 @@
+-- Source: http://lua-users.org/wiki/MakingLuaLikePhp
+-- Credit: http://richard.warburton.it/
+function explode(div,str)
+    if (div=='') then return false end
+    local pos,arr = 0,{}
+    for st,sp in function() return string.find(str,div,pos,true) end do
+        table.insert(arr,string.sub(str,pos,st-1))
+        pos = sp + 1
+    end
+    table.insert(arr,string.sub(str,pos))
+    return arr
+end
+
+
+if request.method == "POST" then
+	local data = {}
+	local lines = explode("\n", request.body)
+	for i, line in ipairs(lines) do
+		local key, value = explode(',', line)
+		table.insert(data, {key, value})
+	end
+	return data
+else
+	return 405, "Only POST requests are allowed for this action."
+end
