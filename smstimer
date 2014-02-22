@@ -1,0 +1,11 @@
+if not storage.smstimer then
+	storage.smstimer = 0
+end
+
+if request.method == "POST" then
+	storage.smstimer = request.body
+	return storage.smstimer
+	
+elseif request.method == "GET" then
+	return storage.smstimer
+end
