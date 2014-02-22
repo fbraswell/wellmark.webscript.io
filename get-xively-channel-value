@@ -1,0 +1,25 @@
+assetFeedID = request.query.feedID
+assetAPIKey = request.query.apiKey
+xivelyChannelName = request.query.xivelyChannelName
+
+local url = ("https://api.xively.com/v2/feeds/" .. assetFeedID .. ".json")
+local dataFromXively = http.request(
+{
+	url = url,
+	method = "get",
+	params =
+	{
+		datastreams = xivelyChannelName
+	},
+	headers =
+	{
+		["X-Api-Key"] = assetAPIKey,
+		Authorization = "Basic ZmJyYXN3ZWxsOm1lcnJpdHQxODY1"
+	}
+})
+
+datastreamsJSON = json.parse(dataFromXively.content).datastreams
+
+for ii, datastream in ipairs(datastreamsJSON) do
+	return datastream["current_value"]
+end
