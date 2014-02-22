@@ -1,0 +1,26 @@
+--local commands = nil
+--if storage.commands then
+--	commands = json.parse(storage.commands)
+--else
+--	commands = {}
+--end
+
+--if request.method == "POST" then
+--	table.insert(commands, request.body)
+--	storage.commands = json.stringify(commands)
+--	return commands
+--	
+--elseif request.method == "GET" then
+--	return commands
+--		
+--else
+--	return 405, "Only GET or POST requests are allowed for this action (GET to view commands, POST to add a command)."
+--end
+
+if request.method == "POST" then
+	storage.chemPumpSetPoint = request.body
+	return storage.chemPumpSetPoint
+	
+elseif request.method == "GET" then
+	return storage.chemPumpSetPoint
+end
