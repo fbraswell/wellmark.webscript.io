@@ -1,0 +1,14 @@
+if request.method == "POST" then
+	local commands = nil
+	if storage.commands then
+		commands = json.parse(storage.commands)
+	else
+		commands = {}
+	end
+	
+	storage.commands = nil
+	
+	return commands
+else
+	return 405, "Only POST requests are allowed for this action."
+end
