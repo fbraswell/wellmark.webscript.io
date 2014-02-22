@@ -1,0 +1,39 @@
+assetFeedID = 1432343757
+assetAPIKey = "XEiiq8NpLgyLWXMICo1CsQRQa2Fd5vJ9omtmvQhSPNiyHKlX"
+xivelyChannelName = "Set_AlarmHigh"
+
+-- assetFeedID = request.query.feedID
+-- assetAPIKey = request.query.apiKey
+-- xivelyChannelName = request.query.xivelyChannelName
+
+local url = ("https://api.xively.com/v2/feeds/" .. assetFeedID .. ".json")
+local dataFromXively = http.request(
+{
+	url = url,
+	method = "get",
+	params =
+	{
+		datastreams = xivelyChannelName
+	},
+	headers =
+	{
+		["X-Api-Key"] = assetAPIKey,
+		Authorization = "Basic ZmJyYXN3ZWxsOm1lcnJpdHQxODY1"
+	}
+})
+
+datastreamsJSON = json.parse(dataFromXively.content).datastreams
+
+for ii, datastream in ipairs(datastreamsJSON) do
+	-- return datastream -- return entire stream data structure
+	-- return datastream["id"] -- channel id
+	-- return datastream["tags"] -- array of tags
+	-- return datastream["tags"][0] -- can index tags array
+	-- return datastream["max_value"] -- max value
+	-- return datastream["min_value"] -- min value
+	-- return datastream["at"] -- time of last sample
+	-- return datastream["current_value"] -- value of most current sample
+	-- return datastream["unit"]["symbol"] -- symbol like "V"
+	return datastream["unit"]["label"] -- unit like "Volts"
+
+end
