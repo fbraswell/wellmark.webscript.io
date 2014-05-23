@@ -1,0 +1,29 @@
+--assetFeedID = 1432343757
+-- assetAPIKey = "XEiiq8NpLgyLWXMICo1CsQRQa2Fd5vJ9omtmvQhSPNiyHKlX"
+--assetAPIKey = "9ehXeWj4AFJ5TD2rKiRInZ664Xv6qiuiGtxciWGLseWIxJ3e"
+--xivelyChannelName = "Set_AlarmHigh"
+
+assetFeedID = request.query.feedID
+assetAPIKey = request.query.apiKey
+xivelyChannelName = request.query.xivelyChannelName
+
+local url = ("https://api.xively.com/v2/feeds/"..assetFeedID)
+local dataFromXively = http.request
+{
+	url = url,
+	method = "get",
+--	params =
+--	{
+--		datastreams = "location"
+--	},
+	headers =
+	{
+		["X-Api-Key"] = assetAPIKey,
+		Authorization = "Basic ZmJyYXN3ZWxsOm1lcnJpdHQxODY1"
+	}
+}
+
+local datastreamsJSON = json.parse(dataFromXively.content).description
+
+return datastreamsJSON -- Imp ID
+-- return dataFromXively.content
