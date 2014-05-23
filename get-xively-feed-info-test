@@ -1,11 +1,11 @@
-assetFeedID = 1432343757
+--assetFeedID = 1432343757
 -- assetAPIKey = "XEiiq8NpLgyLWXMICo1CsQRQa2Fd5vJ9omtmvQhSPNiyHKlX"
-assetAPIKey = "9ehXeWj4AFJ5TD2rKiRInZ664Xv6qiuiGtxciWGLseWIxJ3e"
-xivelyChannelName = "Set_AlarmHigh"
+--assetAPIKey = "9ehXeWj4AFJ5TD2rKiRInZ664Xv6qiuiGtxciWGLseWIxJ3e"
+--xivelyChannelName = "Set_AlarmHigh"
 
--- assetFeedID = request.query.feedID
--- assetAPIKey = request.query.apiKey
--- xivelyChannelName = request.query.xivelyChannelName
+assetFeedID = request.query.feedID
+assetAPIKey = request.query.apiKey
+xivelyChannelName = request.query.xivelyChannelName
 
 local url = ("https://api.xively.com/v2/feeds/"..assetFeedID)
 local dataFromXively = http.request
@@ -25,19 +25,5 @@ local dataFromXively = http.request
 
 local datastreamsJSON = json.parse(dataFromXively.content).tags
 
-return datastreamsJSON[1]
+return datastreamsJSON[1] -- Imp ID
 -- return dataFromXively.content
-
--- for ii, datastream in ipairs(datastreamsJSON) do
---	return datastream -- return entire stream data structure
-	-- return datastream["id"] -- channel id
-	-- return datastream["tags"] -- array of tags
-	-- return datastream["tags"][0] -- can index tags array
-	-- return datastream["max_value"] -- max value
-	-- return datastream["min_value"] -- min value
-	-- return datastream["at"] -- time of last sample
-	-- return datastream["current_value"] -- value of most current sample
-	-- return datastream["unit"]["symbol"] -- symbol like "V"
-	-- return datastream["unit"]["label"] -- unit like "Volts"
-
--- end
